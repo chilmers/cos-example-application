@@ -1,0 +1,32 @@
+# A note on configuration!
+# Provide COS_API_KEY, COS_AUTH_CLIENT_ID and COS_OAUTH_CLIENT_SECRET as environment variables, system properties or change below.
+# See HELP.md for more info
+
+cambioopenservices:
+    # The base URL of the API
+    baseUrl: "https://api.openservices.cambio.se"
+    # The API key (subscription key) for Cambio Open Services
+    apiKey: ${COS_API_KEY:or-change-me}
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          cambio-open-services:
+            issuer-uri: "https://authorizer.openservices.cambio.se/auth/realms/master"
+        registration:
+          cambio-open-services-client:
+            # The client id and client secret for authentication against the auth server
+            client-id: ${COS_OAUTH_CLIENT_ID:or-change-me}
+            client-secret: ${COS_OAUTH_CLIENT_SECRET:or-change-me}
+            provider: "cambio-open-services"
+            authorization-grant-type: "client_credentials"
+server:
+  # Use port 8080 for the application server
+  port : 8080
+logging:
+  level:
+    root: WARN
+    se.cambio.openservices.examples.app: DEBUG
+# Enable below to log full fhir requests/responses (the request/response bodies will be gzipped and are not very readable)
+#    org.apache.http.wire: debug
