@@ -74,7 +74,7 @@ public class FhirClientConfig {
      * @return A configured instance of a IGenericClient (i.e. a fhir client)
      */
     @Bean
-    IGenericClient getFhirClient(OAuth2AuthorizedClientManager oauthClientManager){
+    public IGenericClient getFhirClient(OAuth2AuthorizedClientManager oauthClientManager){
         // Create a Fhir R4 context
         var ctx = FhirContext.forR4();
 
